@@ -12,7 +12,7 @@ A minimal chat application demonstrating:
 - Basic chat loop with conversation history
 - Environment-based configuration
 
-**Difficulty**: Beginner  
+**Difficulty**: Beginner
 **Time**: 5 minutes
 
 ```bash

@@ -75,8 +75,7 @@ jobs:
         run: uv python install 3.12
       - name: Install dependencies
         working-directory: pygentic-ai
-        run: uv sync
+        run: uv sync --all-extras
       - name: Run tests with coverage
         working-directory: pygentic-ai
         run: uv run pytest -v --cov=src/pygentic_ai --cov-report=xml --cov-report=term-missing
-

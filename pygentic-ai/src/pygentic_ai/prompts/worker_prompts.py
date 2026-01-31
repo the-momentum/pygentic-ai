@@ -1,5 +1,7 @@
 """Worker agent prompts for specialized tasks."""
 
+from typing import Any
+
 from pydantic_ai import RunContext
 
 TEXT_ROUTER_INSTRUCTIONS = """
@@ -57,7 +59,7 @@ guidelines.
 """
 
 
-def get_guardrails_instructions(ctx: RunContext) -> str:
+def get_guardrails_instructions(ctx: RunContext[Any]) -> str:
     """Get guardrails instructions with formatting parameters.
 
     Args:

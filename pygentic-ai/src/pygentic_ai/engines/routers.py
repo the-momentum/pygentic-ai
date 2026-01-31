@@ -1,6 +1,7 @@
 """Router agent for classifying and routing messages."""
 
 from dataclasses import dataclass
+from typing import Callable
 
 from pydantic import BaseModel
 
@@ -53,7 +54,7 @@ class GenericRouter(BaseAgent):
         deps_type: type[BaseAgentDeps] = RouterDeps,
         **kwargs,
     ) -> None:
-        instructions = routing_prompt or get_router_instructions
+        instructions: str | Callable = routing_prompt if routing_prompt is not None else get_router_instructions
         super().__init__(deps_type=deps_type, output_type=RoutingResponse, instructions=instructions, **kwargs)
 
     async def route(
@@ -75,6 +76,9 @@ class GenericRouter(BaseAgent):
         deps = RouterDeps(language=self.language)
         result = await self.agent.run(user_prompt=message, deps=deps)
         routing = result.output
+
+        # Type narrowing for ty check
+        assert isinstance(routing, RoutingResponse), "Expected RoutingResponse from agent"
 
         if logging or self.verbose:
             print(routing.route, routing.reasoning)

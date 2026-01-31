@@ -51,12 +51,12 @@ class AgentFactory:
     @staticmethod
     async def create_manager(config: AppConfig) -> AgentManager:
         manager = AgentManager()
-        
+
         # Factory registers agents with configuration
         manager.register("agent", ReasoningAgent, api_key=config.api_key, ...)
         manager.register("guardrails", GuardrailsAgent, ...)
         manager.register("translator", SimpleTranslatorWorker, ...)
-        
+
         await manager.initialize()
         return manager
 ```
@@ -71,7 +71,7 @@ result = await agent.generate_response(user_input, chat_history)
 print(result.output)
 ```
 
-**Pros**: Fast, simple, direct control  
+**Pros**: Fast, simple, direct control
 **Cons**: No automatic routing, guardrails, or translation
 
 ### 3. Using Full Workflow (`workflow_example.py`)
@@ -86,7 +86,7 @@ result = await user_assistant_graph.run(
 )
 ```
 
-**Pros**: Automatic routing, guardrails, translation  
+**Pros**: Automatic routing, guardrails, translation
 **Cons**: More complex, slightly slower
 
 The workflow automatically:

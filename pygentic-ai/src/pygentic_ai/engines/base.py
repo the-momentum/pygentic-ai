@@ -2,7 +2,7 @@
 
 from abc import ABC
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 from pydantic_ai import Agent, RunContext, UsageLimits
 from pydantic_ai.mcp import MCPServerStreamableHTTP
@@ -45,7 +45,7 @@ class BaseAgent(ABC):
         api_key: str | None = None,
         deps_type: type[BaseAgentDeps] = BaseAgentDeps,
         output_type: Any = None,
-        instructions: str | None = None,
+        instructions: Callable | str | None = None,
         mcp_urls: list[str] | None = None,
         usage_limits: UsageLimits | None = None,
         **kwargs,

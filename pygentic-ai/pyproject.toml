@@ -49,8 +49,6 @@ code-quality = [
     "ruff>=0.14.14",
     "ty>=0.0.14",
 ]
-
-[project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",

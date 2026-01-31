@@ -18,5 +18,6 @@ class RefuseNode(BaseNode[WorkflowState, dict, str]):
 
     async def run(self, ctx: GraphRunContext[WorkflowState, dict]) -> End[str]:
         language = ctx.deps.get("language", "english")
-        response = REFUSAL_GENERIC[language].format(refusal_reason=ctx.state.refusal_info.refusal_reason)
+        refusal_reason = ctx.state.refusal_info.refusal_reason if ctx.state.refusal_info else "Unknown reason"
+        response = REFUSAL_GENERIC[language].format(refusal_reason=refusal_reason)
         return End(response)

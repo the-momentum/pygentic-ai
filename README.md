@@ -45,10 +45,10 @@ class AgentFactory:
     @staticmethod
     async def create_manager(config: AppConfig) -> AgentManager:
         manager = AgentManager()
-        
+
         # Configure usage limits
         usage_limits = UsageLimits(output_tokens_limit=2000)
-        
+
         # Register agents
         manager.register(
             "agent",
@@ -58,21 +58,21 @@ class AgentFactory:
             language=config.language,
             usage_limits=usage_limits,
         )
-        
+
         manager.register(
             "guardrails",
             GuardrailsAgent,
             api_key=config.api_key,
             llm_model=config.model,
         )
-        
+
         manager.register(
             "translator",
             SimpleTranslatorWorker,
             api_key=config.api_key,
             target_language=config.language,
         )
-        
+
         # Initialize all agents
         await manager.initialize()
         return manager
@@ -115,26 +115,26 @@ class AgentFactory:
     async def create_manager(config: AppConfig) -> AgentManager:
         manager = AgentManager()
         usage_limits = UsageLimits(output_tokens_limit=2000)
-        
-        manager.register("agent", ReasoningAgent, api_key=config.api_key, 
+
+        manager.register("agent", ReasoningAgent, api_key=config.api_key,
                         llm_model=config.model, usage_limits=usage_limits)
         manager.register("guardrails", GuardrailsAgent, api_key=config.api_key)
         manager.register("translator", SimpleTranslatorWorker, api_key=config.api_key)
-        
+
         await manager.initialize()
         return manager
 
 async def main():
     config = AppConfig(api_key="sk-...")
     manager = await AgentFactory.create_manager(config)
-    
+
     # Use workflow
     result = await user_assistant_graph.run(
         {"message": "Hello!"},
         manager.to_deps(chat_history=[])
     )
     print(result)
-    
+
     # Or use agent directly
     agent = manager.get("agent")
     result = await agent.generate_response("What's the weather?", [])
@@ -206,7 +206,7 @@ manager.register(
 ### Engines
 
 - **BaseAgent**: Foundation for custom agents
-- **ReasoningAgent**: General-purpose agent with reasoning capabilities  
+- **ReasoningAgent**: General-purpose agent with reasoning capabilities
 - **GuardrailsAgent**: Agent with content safety checks
 - **GenericRouter**: Routes messages to appropriate handlers
 - **SimpleTranslatorWorker**: Translates responses to different languages

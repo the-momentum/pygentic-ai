@@ -12,6 +12,6 @@ from pygentic_ai.workflows.nodes import (
 )
 
 user_assistant_graph = Graph(
-    nodes=(StartNode, ClassifyNode, GenerateNode, GuardrailsNode, TranslateNode, RefuseNode),
+    nodes=(StartNode, ClassifyNode, GenerateNode, GuardrailsNode, TranslateNode, RefuseNode),  # type: ignore[arg-type]
     name="UserAssistantWorkflow",
 )
