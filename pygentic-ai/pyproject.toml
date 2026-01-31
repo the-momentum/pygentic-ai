@@ -56,12 +56,11 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/he-momentum/pygentic-ai"
-Documentation = "https://github.com/he-momentum/pygentic-ai#readme"
-Repository = "https://github.com/he-momentum/pygentic-ai.git"
-Issues = "https://github.com/he-momentum/pygentic-ai/issues"
-Changelog = "https://github.com/he-momentum/pygentic-ai/blob/main/CHANGELOG.md"
-
+Homepage = "https://github.com/the-momentum/pygentic-ai"
+Documentation = "https://github.com/the-momentum/pygentic-ai#readme"
+Repository = "https://github.com/the-momentum/pygentic-ai.git"
+Issues = "https://github.com/the-momentum/pygentic-ai/issues"
+Changelog = "https://github.com/the-momentum/pygentic-ai/blob/main/CHANGELOG.md"
 [build-system]
 requires = ["uv_build>=0.8.13,<0.9.0"]
 build-backend = "uv_build"
