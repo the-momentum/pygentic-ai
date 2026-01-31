@@ -1,14 +1,111 @@
 [project]
 name = "pygentic-ai"
 version = "0.1.0"
-description = "Agentic Workflow Metaframework"
+description = "A meta-framework for building agentic workflows with Pydantic AI"
 readme = "README.md"
+license = { text = "MIT" }
 authors = [
     { name = "Sebastian Kalisz", email = "23085519+KaliszS@users.noreply.github.com" }
 ]
+maintainers = [
+    { name = "Sebastian Kalisz", email = "23085519+KaliszS@users.noreply.github.com" }
+]
+keywords = [
+    "ai",
+    "agents",
+    "mcp",
+    "llm",
+    "pydantic",
+    "pydantic-ai",
+    "fastmcp",
+    "workflow",
+    "automation",
+    "openai",
+    "anthropic",
+    "meta-framework",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic-ai>=1.51.0",
+    "pydantic-settings>=2.12.0",
+]
+
+[dependency-groups]
+code-quality = [
+    "pre-commit>=4.5.1",
+    "ruff>=0.14.14",
+    "ty>=0.0.14",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/he-momentum/pygentic-ai"
+Documentation = "https://github.com/he-momentum/pygentic-ai#readme"
+Repository = "https://github.com/he-momentum/pygentic-ai.git"
+Issues = "https://github.com/he-momentum/pygentic-ai/issues"
+Changelog = "https://github.com/he-momentum/pygentic-ai/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["uv_build>=0.8.13,<0.9.0"]
 build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "I",     # isort
+    "F",     # pyflakes
+    "FAST",  # FastApi
+    "ANN",   # flake8-annotations
+    "ASYNC", # flake8-async
+    "COM",   # flake8-commas
+    "T10",   # flake8-debugger
+    "PT",    # flake8-pytest-style
+    "RET",   # flake8-return
+    "SIM",   # flake8-simplify
+    "N",     # pep8-naming
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+]
+ignore = [
+    "ANN002", # missing-type-args
+    "ANN003", # missing-type-kwargs
+    "ANN204", # missing-return-type-special-method
+    "ANN401", # any-type
+    "RET503", # implicit-return
+    "COM812", # trailing-comma (conflicts with ruff format)
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/pygentic_ai"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]

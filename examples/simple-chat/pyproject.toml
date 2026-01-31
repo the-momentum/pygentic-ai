@@ -1,0 +1,18 @@
+[project]
+name = "simple-chat"
+version = "0.1.0"
+description = "Simple chat application example using pygentic-ai"
+requires-python = ">=3.12"
+# dependencies = [
+#     "pygentic-ai",
+# ]
+
+# uncomment below to use newest version fetched from git
+dependencies = [
+    "pygentic-ai",
+]
+[tool.uv.sources]
+pygentic-ai = { path = "../../pygentic-ai", editable = true }
+
+[tool.uv]
+package = false
