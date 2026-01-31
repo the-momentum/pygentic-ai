@@ -1,6 +1,6 @@
 [project]
 name = "pygentic-ai"
-version = "0.1.0"
+version = "0.1.0.post1"
 description = "A meta-framework for building agentic workflows with Pydantic AI"
 readme = "README.md"
 license = { text = "MIT" }
