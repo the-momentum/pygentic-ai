@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths: &paths
+      - "pygentic-ai/**"
+  pull_request:
+    paths: *paths
+
+jobs:
+  # Detect which parts of the codebase changed
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      library: ${{ steps.filter.outputs.library }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            library:
+              - 'pygentic-ai/**'
+
+  library-build:
+    needs: changes
+    if: ${{ needs.changes.outputs.library == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Set up Python
+        run: uv python install 3.12
+      - name: Install dependencies
+        working-directory: pygentic-ai
+        run: uv sync
+
+  library-code-quality:
+    needs: changes
+    if: ${{ needs.changes.outputs.library == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Set up Python
+        run: uv python install 3.12
+      - name: Install dependencies
+        working-directory: pygentic-ai
+        run: uv sync --group code-quality
+      - name: Run linter
+        working-directory: pygentic-ai
+        run: uv run ruff check src/
+      - name: Run formatter
+        working-directory: pygentic-ai
+        run: uv run ruff format --check src/
+      - name: Run type checker
+        working-directory: pygentic-ai
+        run: uv run ty check src/
+
+  library-test:
+    needs: changes
+    if: ${{ needs.changes.outputs.library == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Set up Python
+        run: uv python install 3.12
+      - name: Install dependencies
+        working-directory: pygentic-ai
+        run: uv sync
+      - name: Run tests with coverage
+        working-directory: pygentic-ai
+        run: uv run pytest -v --cov=src/pygentic_ai --cov-report=xml --cov-report=term-missing
+
