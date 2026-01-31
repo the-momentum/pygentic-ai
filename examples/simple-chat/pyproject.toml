@@ -1,6 +1,6 @@
 [project]
 name = "simple-chat"
-version = "0.1.0"
+version = "0.1.0.post1"
 description = "Simple chat application example using pygentic-ai"
 requires-python = ">=3.12"
 dependencies = [
